@@ -156,7 +156,7 @@ class DrawView: UIView {
         
         // Color the selected line green
         if let index = selectedLineIndex {
-            UIColor.lightGray≥.setStroke()
+            UIColor.lightGray.setStroke()
             let selectedLine = finishedLines[index]
             stroke(selectedLine)
         }
