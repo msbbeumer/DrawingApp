@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590070B81E92CCA00010D767 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590070B71E92CCA00010D767 /* Circle.swift */; };
 		59F73D9B1E8192BA0090F318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73D9A1E8192BA0090F318 /* AppDelegate.swift */; };
 		59F73D9D1E8192BA0090F318 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73D9C1E8192BA0090F318 /* ViewController.swift */; };
 		59F73DA01E8192BA0090F318 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59F73D9E1E8192BA0090F318 /* Main.storyboard */; };
@@ -14,6 +15,8 @@
 		59F73DA51E8192BA0090F318 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59F73DA31E8192BA0090F318 /* LaunchScreen.storyboard */; };
 		59F73DB01E8192BA0090F318 /* TouchTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73DAF1E8192BA0090F318 /* TouchTrackerTests.swift */; };
 		59F73DBB1E8192BA0090F318 /* TouchTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73DBA1E8192BA0090F318 /* TouchTrackerUITests.swift */; };
+		59F73DC91E8193A90090F318 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73DC81E8193A90090F318 /* Line.swift */; };
+		59F73DCB1E81947B0090F318 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F73DCA1E81947B0090F318 /* DrawView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		590070B71E92CCA00010D767 /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		59F73D971E8192BA0090F318 /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F73D9A1E8192BA0090F318 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59F73D9C1E8192BA0090F318 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +51,8 @@
 		59F73DB61E8192BA0090F318 /* TouchTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F73DBA1E8192BA0090F318 /* TouchTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchTrackerUITests.swift; sourceTree = "<group>"; };
 		59F73DBC1E8192BA0090F318 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59F73DC81E8193A90090F318 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		59F73DCA1E81947B0090F318 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 				59F73D9A1E8192BA0090F318 /* AppDelegate.swift */,
 				59F73D9C1E8192BA0090F318 /* ViewController.swift */,
 				59F73D9E1E8192BA0090F318 /* Main.storyboard */,
+				59F73DCA1E81947B0090F318 /* DrawView.swift */,
+				590070B71E92CCA00010D767 /* Circle.swift */,
+				59F73DC81E8193A90090F318 /* Line.swift */,
 				59F73DA11E8192BA0090F318 /* Assets.xcassets */,
 				59F73DA31E8192BA0090F318 /* LaunchScreen.storyboard */,
 				59F73DA61E8192BA0090F318 /* Info.plist */,
@@ -259,7 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				590070B81E92CCA00010D767 /* Circle.swift in Sources */,
+				59F73DC91E8193A90090F318 /* Line.swift in Sources */,
 				59F73D9D1E8192BA0090F318 /* ViewController.swift in Sources */,
+				59F73DCB1E81947B0090F318 /* DrawView.swift in Sources */,
 				59F73D9B1E8192BA0090F318 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,6 +517,7 @@
 				59F73DC11E8192BA0090F318 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59F73DC21E8192BA0090F318 /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +526,7 @@
 				59F73DC41E8192BA0090F318 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59F73DC51E8192BA0090F318 /* Build configuration list for PBXNativeTarget "TouchTrackerUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +535,7 @@
 				59F73DC71E8192BA0090F318 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
