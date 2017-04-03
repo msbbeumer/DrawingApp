@@ -12,34 +12,17 @@ class DrawView: UIView {
     // MARK: - Properties
     var currentLines = [NSValue:Line]()
     var finishedLines = [Line]()
-    
-    // MARK: - Gesture recognition
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.doubleTap(_:)))
-        doubleTapRecognizer.numberOfTapsRequired = 2
-        doubleTapRecognizer.delaysTouchesBegan = true
-        addGestureRecognizer(doubleTapRecognizer)
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
-        tapRecognizer.numberOfTapsRequired = 1
-        tapRecognizer.delaysTouchesBegan = true
-        tapRecognizer.require(toFail: doubleTapRecognizer)
-        addGestureRecognizer(tapRecognizer)
+    var selectedLineIndex: Int? {
+        didSet {
+            if selectedLineIndex == nil {
+                let menu = UIMenuController.shared
+                menu.setMenuVisible(false, animated: true)
+            }
+        }
     }
     
-    func doubleTap(_ gestureRecognizer: UIGestureRecognizer) {
-        print("Recognized a double tap")
-        
-        currentLines.removeAll()
-        finishedLines.removeAll()
-        
-        setNeedsDisplay()
-    }
-    
-    func tap(_ gestureRecognizer: UIGestureRecognizer) {
-        print("Recognized a tap")
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     // MARK: - @IBInspectables
@@ -60,6 +43,92 @@ class DrawView: UIView {
             setNeedsDisplay()
         }
     }
+    
+    // MARK: - Gesture recognition
+    // Set up the gesture recognizers
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.doubleTap(_:)))
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        doubleTapRecognizer.delaysTouchesBegan = true
+        addGestureRecognizer(doubleTapRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.delaysTouchesBegan = true
+        tapRecognizer.require(toFail: doubleTapRecognizer)
+        addGestureRecognizer(tapRecognizer)
+    }
+    
+    // Implement the Double Tap action
+    func doubleTap(_ gestureRecognizer: UIGestureRecognizer) {
+        print("Recognized a double tap")
+        
+        selectedLineIndex = nil
+        currentLines.removeAll()
+        finishedLines.removeAll()
+        
+        setNeedsDisplay()
+    }
+    
+    // Implement the Tap action
+    func tap(_ gestureRecognizer: UIGestureRecognizer) {
+        print("Recognized a tap")
+        
+        let point = gestureRecognizer.location(in: self)
+        selectedLineIndex = indexOfLine(at: point)
+        
+        let menu = UIMenuController.shared
+        
+        if selectedLineIndex != nil {
+            becomeFirstResponder()
+            
+            let deleteItem = UIMenuItem(title: "Delete", action: #selector(DrawView.deleteLine(_:)))
+            menu.menuItems = [deleteItem]
+            
+            let targetRect = CGRect(x: point.x, y: point.y, width: 2, height: 2)
+            menu.setTargetRect(targetRect, in: self)
+            menu.setMenuVisible(true, animated: true)
+        } else {
+            menu.setMenuVisible(false, animated: true)
+        }
+        
+        setNeedsDisplay()
+    }
+    
+    // Function to return the index of a line in the finished lines array
+    func indexOfLine(at point: CGPoint) -> Int? {
+        for (index, line) in finishedLines.enumerated() {
+            let begin = line.begin
+            let end = line.end
+            
+            // Check  a few points on the line
+            for t in stride(from: CGFloat(0), to: 1.0, by: 0.05) {
+                let x = begin.x + ((end.x - begin.x) * t)
+                let y = begin.y + ((end.y - begin.y) * t)
+                
+                // If the tapped point is within 20 points, return this line
+                if  hypot(x - point.x, y - point.y) < 20.0 {
+                return index
+                }
+            }
+        }
+        
+        // If nothing is close enough to the tapped point, then no line is selected
+        return nil
+    }
+    
+    // Implement the deleteLine function
+    func deleteLine(_ sender: UIMenuController) {
+        if let index = selectedLineIndex {
+            finishedLines.remove(at: index)
+            selectedLineIndex = nil
+            
+            setNeedsDisplay()
+        }
+    }
+    
     
     // MARK: - Drawing methods
     func stroke(_ line: Line) {
@@ -83,6 +152,13 @@ class DrawView: UIView {
         for(_, line) in currentLines {
             line.color.setStroke()
             stroke(line)
+        }
+        
+        // Color the selected line green
+        if let index = selectedLineIndex {
+            UIColor.lightGray≥.setStroke()
+            let selectedLine = finishedLines[index]
+            stroke(selectedLine)
         }
     }
     
