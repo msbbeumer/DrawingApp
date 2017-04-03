@@ -15,20 +15,29 @@ struct Line {
 }
 
 extension Line {
-    var angle: Measurement<UnitAngle> {
-        guard begin != end else {
-            return Measurement(value: 0.0, unit: .radians)
+    
+    var angleDegree : CGFloat {
+        
+        guard begin != end else { return 0 }
+        
+        let dX = end.x - begin.x
+        let dY = end.y - begin.y
+        
+        var angle = atan2(dY, dX) * 180 / CGFloat(Double.pi)
+        
+        //make negative angles be positive and angles can go from 0 to 360
+        if angle < 0 {
+            angle = angle + 360
         }
-        let dy = Double(end.y - begin.y)
-        let dx = Double(end.x - begin.x)
-        let angleInRadian: Measurement<UnitAngle> = Measurement(value: atan2(dy, dx), unit: .radians)
-        return angleInRadian
+        print(angle)
+        return CGFloat(angle)
+        
     }
     
-    var color: UIColor {
-        let colors = [UIColor.black, UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.gray, UIColor.green, UIColor.lightGray, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.red, UIColor.yellow]
-        let ratio = (self.angle.value + Double.pi) / (Double.pi * 2)
-        let colorIndex = Int(Double(colors.count - 1) * ratio)
-        return colors[colorIndex]
+    var color : UIColor {
+        let hueCode = angleDegree / 360
+        
+        return UIColor(hue: hueCode, saturation: 1, brightness: 1, alpha: 1)
     }
+    
 }

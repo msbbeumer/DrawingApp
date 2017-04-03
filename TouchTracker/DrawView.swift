@@ -16,6 +16,37 @@ class DrawView: UIView {
     var currentCircle = Circle()
     var finishedCircles = [Circle]()
     
+    // MARK: - Gesture recognition
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.doubleTap(_:)))
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        doubleTapRecognizer.delaysTouchesBegan = true
+        addGestureRecognizer(doubleTapRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.delaysTouchesBegan = true
+        tapRecognizer.require(toFail: doubleTapRecognizer)
+        addGestureRecognizer(tapRecognizer)
+    }
+    
+    func doubleTap(_ gestureRecognizer: UIGestureRecognizer) {
+        print("Recognized a double tap")
+        
+        currentLines.removeAll()
+        finishedLines.removeAll()
+        currentCircle = Circle()
+        finishedCircles.removeAll()
+        
+        setNeedsDisplay()
+    }
+    
+    func tap(_ gestureRecognizer: UIGestureRecognizer) {
+        print("Recognized a tap")
+    }
+    
     // MARK: - @IBInspectables
     @IBInspectable var finishedLineColor: UIColor = UIColor.black {
         didSet {
