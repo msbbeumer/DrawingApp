@@ -190,7 +190,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
           line.end.x += translation.x
           line.end.y += translation.y
           
-          let newLine = Line(begin: line.begin, end: line.end, color: selectedLineColor)
+          let newLine = Line(begin: line.begin, end: line.end, color: line.color)
           finishedLines[arrayIndex].remove(at: index)
           finishedLines[arrayIndex].insert(newLine, at: index)
           
