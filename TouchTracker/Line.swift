@@ -12,6 +12,7 @@ import CoreGraphics
 struct Line {
   var begin = CGPoint.zero
   var end = CGPoint.zero
+  var color = UIColor.blue
 }
 
 extension Line {
@@ -33,11 +34,7 @@ extension Line {
     return CGFloat(angle)
     
   }
-  
-  var color : UIColor {
-    let hueCode = angleDegree / 360
-    
-    return UIColor(hue: hueCode, saturation: 1, brightness: 1, alpha: 1)
+  var hueCode: CGFloat {
+    return angleDegree / 360
   }
-  
 }
