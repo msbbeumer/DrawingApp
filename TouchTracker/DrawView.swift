@@ -72,7 +72,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   
   
   // MARK: - @IBInspectables
-  @IBInspectable var lineThickness: CGFloat = 10 {
+  @IBInspectable var lineThickness: CGFloat = 6 {
     didSet {
       setNeedsDisplay()
     }
