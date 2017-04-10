@@ -199,18 +199,18 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   // Function to return the index of a line in the finished lines array
   func indexOfLine(at point: CGPoint) -> Int? {
     for (index, lineArray) in finishedLines.enumerated() {
-      let begin = lineArray.first?.begin
-      let end = lineArray.last?.end
+      if let begin = lineArray.first?.begin, let end = lineArray.last?.end {
       
       // Check  a few points on the line
       for t in stride(from: CGFloat(0), to: 1.0, by: 0.05) {
-        let x = (begin?.x)! + (((end?.x)! - (begin?.x)!) * t)
-        let y = (begin?.y)! + (((end?.y)! - (begin?.y)!) * t)
+        let x = begin.x + ((end.x - begin.x) * t)
+        let y = begin.y + ((end.y - begin.y) * t)
         
         // If the tapped point is within 20 points, return this line
         if  hypot(x - point.x, y - point.y) < 20.0 {
           return index
         }
+      }
       }
     }
     
@@ -305,7 +305,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     for touch in touches {
       let key = NSValue(nonretainedObject: touch)
       if var lineArray = currentLines[key] {
-        let lastLineIndex = (currentLines[key]?.endIndex)! - 1
+        let lastLineIndex = lineArray.endIndex - 1
         var newLine = Line(begin: lineArray[lastLineIndex].end, end: touch.location(in: self), color: UIColor.blue)
         if multiColorIsActive {
           newLine.color =  UIColor(hue: newLine.hueCode, saturation: 1, brightness: 1, alpha: 1)
