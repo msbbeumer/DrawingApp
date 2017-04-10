@@ -30,46 +30,10 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   
   var multiColorIsActive = true
   var selectedLineColor = UIColor.blue
-  
-  //MARK: - IBOutlets and IBActions for the ColorPanel
+
   @IBOutlet var colorPanel: UIView!
 
-  @IBAction func redButton(_ sender: UIButton) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.red
-  }
-  @IBAction func orangeButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.orange
-  }
-  @IBAction func yellowButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.yellow
-  }
-  @IBAction func greenButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.green
-  }
-  @IBAction func blueButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.blue
-  }
-  @IBAction func purpleButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.purple
-  }
-  @IBAction func magentaButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.magenta
-  }
-  @IBAction func cyanButton(_ sender: Any) {
-    multiColorIsActive = false
-    selectedLineColor = UIColor.cyan
-  }
-  @IBAction func multiColorButton(_ sender: Any) {
-    multiColorIsActive = true
-  }
-  
+    
   
   // MARK: - @IBInspectables
   @IBInspectable var lineThickness: CGFloat = 6 {
@@ -102,16 +66,27 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     moveRecognizer.cancelsTouchesInView = false
     addGestureRecognizer(moveRecognizer)
     
-    let twoFingerSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.threeFingerSwipe(_:)))
-    twoFingerSwipeRecognizer.numberOfTouchesRequired = 2
-    twoFingerSwipeRecognizer.direction = .up
-    twoFingerSwipeRecognizer.delaysTouchesBegan = true
-    addGestureRecognizer(twoFingerSwipeRecognizer)
+    let twoFingerSwipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.twoFingerSwipeUp(_:)))
+    twoFingerSwipeUpRecognizer.numberOfTouchesRequired = 2
+    twoFingerSwipeUpRecognizer.direction = .up
+    twoFingerSwipeUpRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(twoFingerSwipeUpRecognizer)
+    
+    let twoFingerSwipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.twoFingerSwipeDown(_:)))
+    twoFingerSwipeDownRecognizer.numberOfTouchesRequired = 2
+    twoFingerSwipeDownRecognizer.direction = .down
+    twoFingerSwipeDownRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(twoFingerSwipeDownRecognizer)
     
   }
-  // Implement the Three Finger Swipe action
-  func threeFingerSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
+  // Implement the Two Finger Swipe Up action
+  func twoFingerSwipeUp(_ gestureRecognizer: UISwipeGestureRecognizer) {
     colorPanel.isHidden = false
+  }
+  
+  // Implement the Two Finger Swipe Down Action
+  func twoFingerSwipeDown(_ gestureRecognizer: UISwipeGestureRecognizer) {
+    colorPanel.isHidden = true
   }
   
   // Implement the Double Tap action
@@ -129,8 +104,6 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   // Implement the Tap action
   func tap(_ gestureRecognizer: UIGestureRecognizer) {
     print("Recognized a tap")
-    
-    colorPanel.isHidden = true
     
     let point = gestureRecognizer.location(in: self)
     selectedLineArrayIndex = indexOfLine(at: point)
