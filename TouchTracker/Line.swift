@@ -30,7 +30,7 @@ extension Line {
     if angle < 0 {
       angle = angle + 360
     }
-    print(angle)
+    
     return CGFloat(angle)
     
   }

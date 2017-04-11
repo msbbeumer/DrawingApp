@@ -47,15 +47,15 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
-    let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.doubleTap(_:)))
-    doubleTapRecognizer.numberOfTapsRequired = 2
-    doubleTapRecognizer.delaysTouchesBegan = true
-    addGestureRecognizer(doubleTapRecognizer)
+    let tripleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tripleTap(_:)))
+    tripleTapRecognizer.numberOfTapsRequired = 3
+    tripleTapRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(tripleTapRecognizer)
     
     let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
     tapRecognizer.numberOfTapsRequired = 1
     tapRecognizer.delaysTouchesBegan = true
-    tapRecognizer.require(toFail: doubleTapRecognizer)
+    tapRecognizer.require(toFail: tripleTapRecognizer)
     addGestureRecognizer(tapRecognizer)
     
     let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DrawView.longPress(_:)))
@@ -90,7 +90,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   }
   
   // Implement the Double Tap action
-  func doubleTap(_ gestureRecognizer: UIGestureRecognizer) {
+  func tripleTap(_ gestureRecognizer: UIGestureRecognizer) {
     print("Recognized a double tap")
     
     selectedLineArrayIndex = nil
