@@ -10,7 +10,6 @@ import UIKit
 
 class DrawView: UIView, UIGestureRecognizerDelegate {
   // MARK: - Properties
-  var currentLine = [Line]()
   var currentLines = [NSValue:[Line]]()
   var finishedLines = [[Line]]()
   var selectedLineArrayIndex: Int? {
@@ -117,7 +116,6 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     print("Recognized a double tap")
     
     selectedLineArrayIndex = nil
-    currentLine.removeAll()
     currentLines.removeAll()
     finishedLines.removeAll()
     
@@ -287,15 +285,15 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     for touch in touches {
       let location = touch.location(in: self)
       
-      var newLine = Line(begin: location, end: location, color: UIColor.blue)
+      var newLineSegment = Line(begin: location, end: location, color: UIColor.blue)
       if multiColorIsActive {
-        newLine.color =  UIColor(hue: newLine.hueCode, saturation: 1, brightness: 1, alpha: 1)
+        newLineSegment.color =  UIColor(hue: newLineSegment.hueCode, saturation: 1, brightness: 1, alpha: 1)
       } else {
-        newLine.color = selectedLineColor
+        newLineSegment.color = selectedLineColor
       }
-      currentLine.append(newLine)
+      
       let key = NSValue(nonretainedObject: touch)
-      currentLines[key] = currentLine
+      currentLines[key] = [newLineSegment]
     }
     setNeedsDisplay()
   }
@@ -309,14 +307,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
       
       if var lineArray = currentLines[key] {
         let lastLineIndex = (lineArray.endIndex) - 1
-        var newLine = Line(begin: lineArray[lastLineIndex].end, end: touch.location(in: self), color: UIColor.blue)
+        var newLineSegment = Line(begin: lineArray[lastLineIndex].end, end: touch.location(in: self), color: UIColor.blue)
         if multiColorIsActive {
-          newLine.color =  UIColor(hue: newLine.hueCode, saturation: 1, brightness: 1, alpha: 1)
+          newLineSegment.color =  UIColor(hue: newLineSegment.hueCode, saturation: 1, brightness: 1, alpha: 1)
         } else {
-          newLine.color = selectedLineColor
+          newLineSegment.color = selectedLineColor
         }
-        currentLine.append(newLine)
-        currentLines[key] = currentLine
+        currentLines[key]?.append(newLineSegment)
       }
     }
     setNeedsDisplay()
@@ -329,18 +326,17 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
       let key = NSValue(nonretainedObject: touch)
       if var lineArray = currentLines[key] {
         let lastLineIndex = lineArray.endIndex - 1
-        var newLine = Line(begin: lineArray[lastLineIndex].end, end: touch.location(in: self), color: UIColor.blue)
+        var newLineSegment = Line(begin: lineArray[lastLineIndex].end, end: touch.location(in: self), color: UIColor.blue)
         if multiColorIsActive {
-          newLine.color =  UIColor(hue: newLine.hueCode, saturation: 1, brightness: 1, alpha: 1)
+          newLineSegment.color =  UIColor(hue: newLineSegment.hueCode, saturation: 1, brightness: 1, alpha: 1)
         } else {
-          newLine.color = selectedLineColor
+          newLineSegment.color = selectedLineColor
         }
-        lineArray.append(newLine)
+        lineArray.append(newLineSegment)
         
         
         finishedLines.append(lineArray)
         currentLines.removeValue(forKey: key)
-        currentLine.removeAll()
       }
     }
     setNeedsDisplay()
@@ -351,7 +347,6 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     print(#function)
     
     currentLines.removeAll()
-    currentLine.removeAll()
     
     setNeedsDisplay()
   }
