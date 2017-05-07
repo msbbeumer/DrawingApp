@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,6 +22,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBg-Uz-fjn">
+                                <rect key="frame" x="8" y="0.0" width="226" height="667"/>
+                                <mutableString key="text">Instructions
+
+Hide/Display Color Panel: - Hide the color panel with a 2-fingered swipe down - Display the color panel with a 2-finger swipe up  Selecting, moving, and deleting lines: - Double tapping at the startpoint or endpoint of a line selects it. You can then drag it to a new location or delete it - Pressing and holding on the start or endpoint of a line selects the line and you can drag it to a new location - Triple tapping anywhere on the screen deletes all of the current lines  Hide/Display Instructions: - Hide the instructions with a 4-fingered swipe down - Display the instructions with a 4-fingered swipe up</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.5" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTg-mu-hbz">
                                 <rect key="frame" x="249" y="417" width="110" height="230"/>
                                 <subviews>
@@ -185,7 +194,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JBg-Uz-fjn" secondAttribute="bottom" id="LQQ-Qw-Poc"/>
+                            <constraint firstItem="JBg-Uz-fjn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Uiz-re-oT0"/>
+                            <constraint firstItem="JBg-Uz-fjn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="XOf-0G-BCb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aTg-mu-hbz" secondAttribute="bottom" constant="20" id="d9H-gS-cpp"/>
+                            <constraint firstItem="aTg-mu-hbz" firstAttribute="leading" secondItem="JBg-Uz-fjn" secondAttribute="trailing" constant="15" id="paR-Jo-4V1"/>
                             <constraint firstItem="aTg-mu-hbz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="uYk-C1-7Vj"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -201,6 +214,7 @@
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="colorPanel" destination="aTg-mu-hbz" id="Vs8-If-PZE"/>
+                            <outlet property="instructions" destination="JBg-Uz-fjn" id="mEN-ac-yQj"/>
                         </connections>
                     </view>
                     <connections>

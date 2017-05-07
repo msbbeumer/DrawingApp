@@ -32,6 +32,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
   var selectedLineColor = UIColor.blue
 
   @IBOutlet var colorPanel: UIView!
+  @IBOutlet var instructions: UILabel!
 
     
   
@@ -52,11 +53,11 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     tripleTapRecognizer.delaysTouchesBegan = true
     addGestureRecognizer(tripleTapRecognizer)
     
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
-    tapRecognizer.numberOfTapsRequired = 1
-    tapRecognizer.delaysTouchesBegan = true
-    tapRecognizer.require(toFail: tripleTapRecognizer)
-    addGestureRecognizer(tapRecognizer)
+    let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(DrawView.tap(_:)))
+    doubleTapRecognizer.numberOfTapsRequired = 2
+    doubleTapRecognizer.delaysTouchesBegan = true
+    doubleTapRecognizer.require(toFail: tripleTapRecognizer)
+    addGestureRecognizer(doubleTapRecognizer)
     
     let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DrawView.longPress(_:)))
     addGestureRecognizer(longPressRecognizer)
@@ -78,6 +79,18 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     twoFingerSwipeDownRecognizer.delaysTouchesBegan = true
     addGestureRecognizer(twoFingerSwipeDownRecognizer)
     
+    let fourFingerSwipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.fourFingerSwipeUp(_:)))
+    fourFingerSwipeUpRecognizer.numberOfTouchesRequired = 4
+    fourFingerSwipeUpRecognizer.direction = .up
+    fourFingerSwipeUpRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(fourFingerSwipeUpRecognizer)
+    
+    let fourFingerSwipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.fourFingerSwipeDown(_:)))
+    fourFingerSwipeDownRecognizer.numberOfTouchesRequired = 4
+    fourFingerSwipeDownRecognizer.direction = .down
+    fourFingerSwipeDownRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(fourFingerSwipeDownRecognizer)
+    
   }
   // Implement the Two Finger Swipe Up action
   func twoFingerSwipeUp(_ gestureRecognizer: UISwipeGestureRecognizer) {
@@ -89,7 +102,17 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     colorPanel.isHidden = true
   }
   
-  // Implement the Double Tap action
+  // Implement the Four Finger Swipe Up Action
+  func fourFingerSwipeUp(_ gestureRecognizer: UISwipeGestureRecognizer) {
+    instructions.isHidden = false
+  }
+  
+  // Implement the Four Finger Swipe Down Action
+  func fourFingerSwipeDown(_ gestureRecognizer: UISwipeGestureRecognizer) {
+    instructions.isHidden = true
+  }
+  
+  // Implement the Triple Tap action
   func tripleTap(_ gestureRecognizer: UIGestureRecognizer) {
     print("Recognized a double tap")
     
@@ -101,7 +124,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     setNeedsDisplay()
   }
   
-  // Implement the Tap action
+  // Implement the Double Tap action
   func tap(_ gestureRecognizer: UIGestureRecognizer) {
     print("Recognized a tap")
     
